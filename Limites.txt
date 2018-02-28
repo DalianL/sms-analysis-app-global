@@ -1,0 +1,26 @@
+Etant donné que la livraison client n'était pas spécifiée dès le début ce projet a été
+développé en ajoutant le plus de fonctionnalités possibles coté Cloud afin de reproduire 
+un schéma classique d'utilisation de services déporté (machine learning sur machine distante) :
+- gestion de la base de données par Azure
+- backend Azure pour recevoir les appels REST du client Android
+- script pour appliquer le machine learning dans une page web hostée par Azure
+- affichage des résultats dans une page web hostée par Azure
+
+Le Business Model d'Azure est de vendre des services (et/ou des plateformes si utilisation 
+de VMs) ce qui impose dans une moindre mesure de rejoindre leur Business Model lors du 
+développement d'une application : en effet le code produit en utilisant les outils Azure se 
+base sur des APIs produisant des solutions non-exportables afin de limiter la possibilité 
+de se diriger vers un autre fournisseur comme par exemple Google ou Amazon.
+C'est à cause de cette contrainte qu'il est difficile de fournir un livrable dans une image 
+déployable sur serveur de virtualisation personnel; les services Azure sont voués a rester chez 
+Azure, et vendre sa solution revient à la faire racheter par un autre utilisateur Azure via le 
+"Store" appelé dans ce cas Azure MarketPlace.
+
+Ces limites rendent donc le déploiement tel quel impossible, mais le projet serait déployable 
+en recréant avec un serveur local toutes les fonctionnalités mentionnées ci-dessus (base de 
+données, ...). Un exemple serait une base de données MongoDB, un backend en NodeJS, un script 
+de calcul en Java / C / R (n'importe quel langage adapté aux calculs intensifs) puis un rendu 
+avec une page hostée en local sur un serveur. Le manque de temps et l'offuscation du code par 
+les APIs Azure ont rendus le procédé trop hardu pour pouvoir être livré, mais les instructions 
+développeur sont présentes pour pouvoir recréer le projet et la solution de base tournera encore 
+jusqu'au 12 Mars.
