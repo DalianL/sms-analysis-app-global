@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>SMS Analysis App</title>
+		<meta name="author" content="Dalian Barzellino">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<!-- Latest compiled and minified CSS BootStrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript BootStrap -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="style.css" />
+
+		<!-- Add an original police -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+
+		<script src="https://zumo.blob.core.windows.net/sdk/azure-mobile-apps-client.min.js"></script>
+
+	</head>
+
+	<script>
+		  	var client = new WindowsAzure.MobileServiceClient("http://smsanalysisapp.azurewebsites.net");
+		  	var tableRes = client.getTable("ResultTable");
+		  	var intervalId;
+		  	var data = [];
+
+		  	function success(results) {
+		  		// Read the statistics data from the server response
+		  		results[results.length - 1].num.split(',').forEach((elem) => {
+		  			data.push(elem);
+		  		});
+
+		  		// Display the names of the most contacted contacts
+				document.getElementById("val1").innerHTML = '1<sup>st</sup> most contacted :<br />' + data[0];
+				document.getElementById("val2").innerHTML = '2<sup>nd</sup> most contacted :<br />' + data[1];
+				document.getElementById("val3").innerHTML = '3<sup>rd</sup> most contacted :<br />' + data[2];
+
+				// Display the statistics for the above contacts
+				document.getElementById("content1").innerHTML = '<span class="chat"> Chat</span> : ' + Math.round(data[3]) + 
+				'% <span class="mail"> Mail</span> : ' + Math.round(data[4]) + '%';
+				document.getElementById("content2").innerHTML = '<span class="chat"> Chat</span> : ' + Math.round(data[5]) + 
+				'% <span class="mail"> Mail</span> : ' + Math.round(data[6]) + '%';
+				document.getElementById("content3").innerHTML = '<span class="chat"> Chat</span> : ' + Math.round(data[7]) + 
+				'% <span class="mail"> Mail</span> : ' + Math.round(data[8]) + '%';
+
+				// Display the contact most likely to be contacted at the current time
+				document.getElementById("content4").innerHTML = ' ' + data[9];
+
+				var chat = document.querySelectorAll('.chat');
+				chat.forEach(function(el) { el.classList.add("glyphicon"); el.classList.add("glyphicon-comment");  });
+
+				var mail = document.querySelectorAll('.mail');
+				mail.forEach(function(el) { el.classList.add("glyphicon"); el.classList.add("glyphicon-envelope");  });
+			}
+
+			function failure(error) {
+				//console.log("Failure.");
+				throw new Error('Error loading data: ', error);
+			}
+
+			tableRes
+					.read()
+					.then(success, failure);
+
+			// intervalId = setInterval(function (j) {
+			//   	tableRes
+			// 		.read()
+			// 		.then(success, failure);
+			// }, 3600000);
+			
+	</script>
+
+	<body>
+		<div id="myPage" class="jumbotron text-center">
+		  <h1>SMS Analysis App</h1> 
+		  <p>The best application for your statistics</p> 
+		</div>	
+
+		<div class="container-fluid text-center">
+
+		  <div class="row">
+		    <div class="col-md-4">
+		      <h3 id="val1">Most contacted : </h3>
+		      <span class="glyphicon glyphicon-signal logo"></span>
+		      <div id="content1"></div>
+		    </div>
+		    
+		    <div class="col-md-4">
+		      <h3 id="val2">Second most contacted : </h3>
+		      <span class="glyphicon glyphicon-signal logo"></span>
+		      <div id="content2"></div>
+		    </div>
+
+		    <div class="col-md-4">
+		      <h3 id="val3">Third most contacted : </h3>
+		      <span class="glyphicon glyphicon-signal logo"></span>
+		      <div id="content3"></div>
+		    </div>
+		 </div>
+		 
+		 <br>
+
+		 <div class="row">
+		 	<div class="col-md-3"></div>
+		    <div class="col-md-6">
+		      <h3 id="val4">Contact most likely to be contacted right now :</h3>
+		      <span id="content4" class="glyphicon glyphicon-user"> </span>
+		    </div>
+			<div class="col-md-3"></div>
+		</div>
+
+	</body>
+
+</html>

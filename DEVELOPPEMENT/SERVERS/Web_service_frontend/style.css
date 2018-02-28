@@ -1,0 +1,70 @@
+body {
+	font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
+    cursor:default;
+}
+
+.jumbotron { 
+	font-family: Montserrat, sans-serif;
+    background-color: #f4511e; /* Orange */
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+    color: #ffffff;
+}
+
+/* Auto ajust for low resolution */
+@media screen and (max-width: 1000px) {
+    .col-md-4 {
+        text-align: center;
+        margin: 10px 0;
+        padding-top: 10px;
+    }
+
+    .col-md-6 {
+        text-align: center;
+        margin: 10px;
+        padding-top: 10px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .row {
+        margin:10px;
+    }
+}
+
+.glyphicon {
+    padding-left:10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #818181;
+}
+
+.glyphicon-signal {
+    font-size: 25px;
+    margin-bottom: 20px;
+    color: #f4511e;
+}
+
+footer {
+	margin-top:2%;
+}
+
+.col-md-4 {
+	background-color: #f2f2f2;
+    border-right-width: 2px;
+    border-right-style: solid;
+    border-left-width: 2px;
+    border-left-style: solid;
+}
+
+.col-md-6 {
+    background-color: maroon;
+    color:#f2f2f2;
+    border:2px;
+}
+
+#content4
+{
+    color:#f2f2f2;
+}
